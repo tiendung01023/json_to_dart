@@ -7,7 +7,10 @@ assets/define/private_fields/form_class
 assets/define/public_fields/define_function.json
 assets/define/public_fields/form_class
 assets/json/demo_1.json
+css/main.css
+css/snack_bar.css
 index.html
+js/main.js
 main.dart.js
 packages/$sdk/_internal/strong.sum
 packages/$sdk/dev_compiler/kernel/amd/dart_sdk.js

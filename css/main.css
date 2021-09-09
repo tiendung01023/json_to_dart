@@ -1,0 +1,13 @@
+textarea {
+    resize: none;
+}
+
+.textarea-container {
+    position: relative;
+}
+
+.textarea-container div {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
