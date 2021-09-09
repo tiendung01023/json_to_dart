@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>Json to Dart</title>
+  <script defer src="main.dart.js"></script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/49f2957442.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <script>
+    var isDark = false;
+    function readFile(a, b) {
+      $.get(a, function (data) {
+        b(data)
+      });
+    }
+
+    $(window).on("load", function () {
+      setThemeMode(isDark)
+
+      $("#themeMode").click(function () {
+        isDark = !isDark
+        setThemeMode(isDark)
+      })
+
+
+      $('#copyToClipboard').click(function () {
+        copyToClipboard('#classOutputHidden');
+        showSnackbar("Copied")
+      });
+    });
+
+    function setThemeMode(isDarkMode) {
+      if (isDarkMode) {
+        $("#themeMode").text("🌙")
+        $(".myBg1").removeClass("bg-light").addClass("bg-dark")
+        $(".myBg2").removeClass("bg-info").addClass("bg-secondary")
+        $(".myText1").removeClass("text-dark").addClass("text-light")
+      } else {
+        $("#themeMode").text("🌤")
+        $(".myBg1").removeClass("bg-dark").addClass("bg-light")
+        $(".myBg2").removeClass("bg-secondary").addClass("bg-info")
+        $(".myText1").removeClass("text-light").addClass("text-dark")
+      }
+    }
+
+    function copyToClipboard(element) {
+      $(element).select();
+      document.execCommand("copy");
+    }
+
+  </script>
+  <style>
+    textarea {
+      resize: none;
+    }
+
+    .textarea-container {
+      position: relative;
+    }
+
+    .textarea-container div {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  </style>
+  <style>
+    #snackbar {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 2px;
+      padding: 16px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+      font-size: 17px;
+    }
+
+    #snackbar.show {
+      visibility: visible;
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @-webkit-keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+
+      to {
+        bottom: 30px;
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+
+      to {
+        bottom: 30px;
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
+      }
+
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
+      }
+
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark myBg2">
+    <a class="navbar-brand" href="#">Json to dart</a>
+    <a id="themeMode" style="font-size: 25px;">🌤🌙</a>
+  </nav>
+  <div class="row myBg1">
+    <div class="col-12 col-md-4" style="margin: 16px;">
+      <form>
+        <div class="form-group">
+          <label class="myText1" for="json-input">Json input</label>
+          <textarea class="myText1 myBg1 form-control" id="jsonInput" rows="20"
+            placeholder="Input your JSON here..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="myText1" for="converterType">Converter type</label>
+          <select class="form-control myBg1 myText1" id="converterType">
+          </select>
+        </div>
+        <button id="submit" type="button" class="btn mb-2 myBg2 text-light">Convert</button>
+      </form>
+    </div>
+    <div class="col-12 col-md-7" style="margin: 16px;">
+      <div class="form-group">
+        <label class="myText1" for="classOutput">Class output</label>
+        <div class="textarea-container">
+          <textarea class="form-control myBg1 myText1" id="classOutput" rows="26"></textarea>
+          <textarea class="form-control myBg1 myText1" id="classOutputHidden" style="opacity: 0;"></textarea>
+          <div class="myBg2"
+            style="width: 50px; height: 50px; margin: 10px;border-radius: 50%;display: flex;justify-content: center;align-items: center;"
+            id="copyToClipboard">
+            <i class="fas fa-clipboard fa-2x " style="color: white;"></i>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+  <footer class="text-center text-lg-start bg-light text-muted">
+    <!-- Copyright -->
+    <div class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+      style="background-color: rgba(0, 0, 0, 0.05);">
+      <!-- Left -->
+      <div class="me-5 d-lg-block">
+        <span>© 2021 Copyright: tiendung01023</span>
+      </div>
+      <!-- Left -->
+
+      <!-- Right -->
+      <div class="d-none  d-lg-block">
+        <a href="https://www.facebook.com/tiendung01023/" class="me-4 text-reset">
+          <i class="fa fa-facebook-f"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/tiendung01023/" class="me-4 text-reset">
+          <i class="fa fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/tiendung01023/" class="me-4 text-reset">
+          <i class="fa fa-github"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+
+  <div id="snackbar">Some text some message..</div>
+  <script>
+    function showSnackbar(text) {
+      var x = document.getElementById("snackbar");
+      x.innerHTML = text
+      x.className = "show";
+      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    }
+  </script>
+</body>
+
+</html>
