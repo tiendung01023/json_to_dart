@@ -8,7 +8,7 @@ import 'package:json_to_dart/json_to_dart.dart';
 
 Future<void> runDemo() async {
   final demo = await _readJsonFile("assets/json/demo_1.json");
-  querySelector('#jsonInput')?.text = demo;
+  (querySelector('#jsonInput') as TextAreaElement).value = demo;
 }
 
 void main() {
@@ -25,14 +25,16 @@ void main() {
 Future<void> _onSubmit() async {
   print('[web - main - _onSubmit] run');
   try {
-    final jsonInput = querySelector('#jsonInput')?.text;
+    final TextAreaElement jsonInputElement =
+        querySelector('#jsonInput') as TextAreaElement;
+    final jsonInput = jsonInputElement.value;
     final converterType =
         JsObject(context['jQuery'], ['#converterType']).callMethod('val');
-    final defineFunction =
-        await _readJsonFile("assets/define/$converterType/define_function.json");
+    final defineFunction = await _readJsonFile(
+        "assets/define/$converterType/define_function.json");
     String formClass =
         await _readFileTxt("assets/define/$converterType/form_class");
-    formClass = formClass.replaceAll('"', '');
+    print("jsonInput: $jsonInput");
     if (jsonInput != null) {
       String? rs = jsonToDart(
         className: 'ClassName',
@@ -42,10 +44,16 @@ Future<void> _onSubmit() async {
       );
       querySelector('#classOutputHidden')?.text = rs ?? '';
       querySelector('#classOutput')?.text = rs ?? '';
-      querySelector('#copyToClipboard')?.hidden = false;
     }
   } catch (e) {
     print('[web - main - _onSubmit] $e');
+    String message;
+    if (e is LogicException) {
+      message = e.message.toString();
+    } else {
+      message = e.toString();
+    }
+    context.callMethod('alert', [message]);
   }
 }
 

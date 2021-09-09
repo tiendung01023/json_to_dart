@@ -1,5 +1,7 @@
 library json_to_dart;
 
+export 'src/exceptions/logic_exception.dart';
+
 import 'package:json_to_dart/src/run.dart';
 
 String? jsonToDart({

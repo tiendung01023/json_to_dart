@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:json_to_dart/src/exceptions/logic_exception.dart';
 import 'package:json_to_dart/src/model/class_model.dart';
 import 'package:json_to_dart/src/model/define_field_model.dart';
 import 'package:json_to_dart/src/model/field_model.dart';
@@ -13,7 +14,15 @@ String? run({
 }) {
   print('[run - run] run');
   try {
-    final dynamic _jsonDecode = jsonDecode(json);
+    dynamic _jsonDecode;
+    try {
+      _jsonDecode = jsonDecode(json);
+    } catch (e) {
+      throw LogicException(
+        data: 'wrong_json_format',
+        message: "Wrong json format",
+      );
+    }
 
     Map<String, dynamic>? map;
     if (_jsonDecode is Map<String, dynamic>) {
@@ -46,6 +55,7 @@ String? run({
     }
   } catch (e, stackTrace) {
     print('[run - run] $e \n$stackTrace');
+    rethrow;
   }
 }
 
