@@ -1,0 +1,17 @@
+class {className} {
+  {fieldType} {fieldName};
+
+  {className}({
+    required this.{fieldName},
+  });
+
+  {className}.fromJson(Map<String, dynamic> json) {
+    {fieldFromJson}
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> json = <String, dynamic>{};
+    {fieldToJson}
+    return json;
+  }
+}
