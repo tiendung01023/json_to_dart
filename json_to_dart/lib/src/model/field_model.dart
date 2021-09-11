@@ -19,12 +19,10 @@ class FieldModel extends BaseModel {
   /// Định danh sau khi parse thành class
   String get fieldType {
     String rs;
-    if (fieldTypeCode_0 == "dynamic") {
-      rs = "$fieldTypeCode_0";
-    } else if (fieldTypeCode_1 != null) {
-      rs = "$fieldTypeCode_0<$fieldTypeCode_1>?";
+    if (fieldTypeCode == "dynamic") {
+      rs = "$fieldTypeCode";
     } else {
-      rs = "$fieldTypeCode_0?";
+      rs = "$fieldTypeCode?";
     }
     rs = rs.replaceAll('Class', className ?? '');
     return rs;
