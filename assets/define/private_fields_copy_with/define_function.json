@@ -1,0 +1,58 @@
+{
+      "field": [
+            {
+                  "name": "fieldFromJson",
+                  "join": ",\n      ",
+                  "case_default": "{fieldName} = json['{fieldJson}'] as {fieldType}",
+                  "case_list": [
+                        {
+                              "type": "dynamic",
+                              "process": "{fieldName} = json['{fieldJson}']"
+                        },
+                        {
+                              "type": "Class",
+                              "process": "{fieldName} = (json['{fieldJson}'] as Map<String,dynamic>?) != null ? {className}.fromJson(json['{fieldJson}'] as Map<String,dynamic>) : null"
+                        },
+                        {
+                              "type": "List_bool",
+                              "process": "{fieldName} = (json['{fieldJson}'] as List?)?.map((dynamic e) => e as {fieldType_1}).toList()"
+                        },
+                        {
+                              "type": "List_int",
+                              "process": "{fieldName} = (json['{fieldJson}'] as List?)?.map((dynamic e) => e as {fieldType_1}).toList()"
+                        },
+                        {
+                              "type": "List_double",
+                              "process": "{fieldName} = (json['{fieldJson}'] as List?)?.map((dynamic e) => e as {fieldType_1}).toList()"
+                        },
+                        {
+                              "type": "List_String",
+                              "process": "{fieldName} = (json['{fieldJson}'] as List?)?.map((dynamic e) => e as {fieldType_1}).toList()"
+                        },
+                        {
+                              "type": "List_dynamic",
+                              "process": "{fieldName} = json['{fieldJson}'] as List?"
+                        },
+                        {
+                              "type": "List_Class",
+                              "process": "{fieldName} = (json['{fieldJson}'] as List?)?.map((dynamic e) => {className}.fromJson(e as Map<String,dynamic>)).toList()"
+                        }
+                  ]
+            },
+            {
+                  "name": "fieldToJson",
+                  "join": ",\n    ",
+                  "case_default": "'{fieldJson}' : {fieldName}",
+                  "case_list": [
+                        {
+                              "type": "Class",
+                              "process": "'{fieldJson}' : {fieldName}?.toJson()"
+                        },
+                        {
+                              "type": "List_Class",
+                              "process": "'{fieldJson}' : {fieldName}?.map((e) => e.toJson()).toList()"
+                        }
+                  ]
+            }
+      ]
+}

@@ -4,6 +4,8 @@
 assets/.DS_Store
 assets/define/private_fields/define_function.json
 assets/define/private_fields/form_class
+assets/define/private_fields_copy_with/define_function.json
+assets/define/private_fields_copy_with/form_class
 assets/define/public_fields/define_function.json
 assets/define/public_fields/form_class
 assets/json/demo_1.json
