@@ -100,6 +100,8 @@ void loadConverterType() {
       .append(OptionElement(data: "Private fields", value: "private_fields"));
   converterType
       .append(OptionElement(data: "Public fields", value: "public_fields"));
+  converterType
+      .append(OptionElement(data: "Private fields - copyWith", value: "private_fields_copy_with"));
   converterType.append(OptionElement(data: "Custom", value: "custom"));
 
   /// Lấy value người dùng đã chọn
