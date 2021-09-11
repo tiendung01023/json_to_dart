@@ -3,9 +3,10 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>Json to Dart - Tools to support converting json to dart class</title>
+    <title>Json to Dart converter - This tool has support null safety, custom converter</title>
     <meta name="description"
         content="Type in your json and hit the convert button. The tool will support converting to Dart model. Then you just copy it into your project">
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
     <script defer src="main.dart.js"></script>
 
     <meta charset="utf-8">
@@ -23,7 +24,7 @@
     <nav class="navbar navbar-toggleable-md bg-faded myBg2" style="background-color: #ecf0f1">
         <div class="nabar center-block" style="flex: 1;">
             <h1 class="text-light" style="text-align:center; ">
-                Json to Dart</h1>
+                Json to Dart converter</h1>
             <h2 class="text-light" style="text-align:center; font-size:16px">
                 Type in your json and hit the convert button. The tool will support converting to Dart model. Then you
                 just copy it into your project</h2>
@@ -31,32 +32,52 @@
         <a id="themeMode" style="font-size: 25px;">🌤🌙</a>
     </nav>
     <div class="row myBg1">
-        <div class="col-12 col-md-4" style="margin: 16px;">
+        <div class="col-12 col-md-7" style="margin: 16px;">
             <form>
                 <div class="form-group">
-                    <label class="myText1" for="json-input">Json input:</label>
+                    <label class="myText1 title" for="jsonInput">Json input:</label>
                     <textarea class="myText1 myBg1 form-control" id="jsonInput" rows="20"
                         placeholder="Input your JSON here..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="myText1" for="converterType">Converter type:</label>
+                    <label class="myText1 title" for="converterType">Converter type:</label>
                     <select class="form-control myBg1 myText1" id="converterType">
                     </select>
                 </div>
                 <button id="submit" type="button" class="btn mb-2 myBg2 text-light">Convert</button>
             </form>
         </div>
-        <div class="col-12 col-md-7" style="margin: 16px;">
-            <div class="form-group" id="classOutputDiv">
-                <label class="myText1" for="classOutput">Class output:</label>
+        <div class="col-12 col-md-4" style="margin: 16px;">
+            <div class="form-group" id="classOutputDiv" hidden>
+                <label class="myText1 title" for="classOutput">Class output:</label>
                 <div class="textarea-container">
-                    <textarea class="form-control myBg1 myText1" id="classOutput" rows="26"></textarea>
+                    <textarea class="form-control myBg1 myText1" id="classOutput" rows="26"
+                        placeholder="Copy your Dart class here..."></textarea>
                     <textarea class="form-control myBg1 myText1" id="classOutputHidden" style="opacity: 0;"></textarea>
                     <div class="myBg2"
                         style="width: 50px; height: 50px; margin: 10px;border-radius: 50%;display: flex;justify-content: center;align-items: center;"
                         id="copyToClipboard">
                         <i class="fas fa-clipboard fa-2x " style="color: white;"></i>
                     </div>
+                    <div class="myBg2"
+                        style="width: 25px; height: 25px; margin: 10px;border-radius: 50%;display: flex;justify-content: center;align-items: center;"
+                        id="close">
+                        <i class="fas fa-times" style="color: white;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" id="converterInputDiv">
+                <label class="myText1 title" for="converterInput">Converter class input:</label>
+                <div class="textarea-container">
+                    <textarea class="form-control myBg1 myText1" id="converterClassInput" rows="17"
+                        placeholder="Input your define class here..."></textarea>
+                    <pre class="myBg1 myText1" id="converterClassInputReadOnly"></pre>
+                </div>
+                <label class="myText1 title" for="converterInput">Converter function input:</label>
+                <div class="textarea-container">
+                    <textarea class="form-control myBg1 myText1" id="converterFunctionInput" rows="17"
+                        placeholder="Input your define function here..."></textarea>
+                    <pre class="myBg1 myText1" id="converterFunctionInputReadOnly"></pre>
                 </div>
             </div>
         </div>

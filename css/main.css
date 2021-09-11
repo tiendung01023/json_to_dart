@@ -6,8 +6,25 @@ textarea {
     position: relative;
 }
 
-.textarea-container div {
+.textarea-container #close {
     position: absolute;
     top: 0;
     right: 0;
+}
+
+.textarea-container #copyToClipboard {
+    position: absolute;
+    top: 0;
+    right: 30px;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+textarea[readonly] {
+    background-color: red;
+    border: 0;
+    font-size: 1em;
 }
