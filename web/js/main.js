@@ -1,6 +1,10 @@
-var isDark = false;
+var isDark = true;
 
 $(window).on("load", function () {
+    var themeMode = getValueLocal("themeMode")
+    if (themeMode != null) {
+        isDark = themeMode == "true"
+    }
     setThemeMode(isDark)
 
     $("#themeMode").click(function () {
@@ -21,6 +25,8 @@ function readFile(a, b) {
 }
 
 function setThemeMode(isDarkMode) {
+    console.log('[setThemeMode] '+isDarkMode)
+    setValueLocal("themeMode", isDarkMode);
     if (isDarkMode) {
         $("#themeMode").text("🌙")
         $(".myBg1").removeClass("bg-light").addClass("bg-dark")
@@ -36,14 +42,14 @@ function setThemeMode(isDarkMode) {
 
 function copyToClipboard(element) {
     /* Get the text field */
-  var copyText = document.getElementById(element);
+    var copyText = document.getElementById(element);
 
-  /* Select the text field */
-  copyText.select();
-  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
-  /* Copy the text inside the text field */
-  navigator.clipboard.writeText(copyText.value);
+    /* Copy the text inside the text field */
+    navigator.clipboard.writeText(copyText.value);
 }
 
 function showSnackbar(text) {
@@ -53,4 +59,20 @@ function showSnackbar(text) {
     setTimeout(function () {
         x.className = x.className.replace("show", "");
     }, 3000);
+}
+
+function getValueLocal(key) {
+    if (typeof (Storage) !== "undefined") {
+        return localStorage.getItem(key);
+    } else {
+        console.log("Local store not support");
+    }
+}
+
+function setValueLocal(key, value) {
+    if (typeof (Storage) !== "undefined") {
+        localStorage.setItem(key, value);
+    } else {
+        console.log("Local store not support");
+    }
 }

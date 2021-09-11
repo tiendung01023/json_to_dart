@@ -15,12 +15,21 @@ String? run({
   print('[run - run] run');
   try {
     dynamic _jsonDecode;
+    Map<String,dynamic> _defineFunction;
     try {
       _jsonDecode = jsonDecode(json);
     } catch (e) {
       throw LogicException(
-        data: 'wrong_json_format',
-        message: "Wrong json format",
+        data: 'json_input.wrong_json_format',
+        message: "Json input: Wrong json format",
+      );
+    }
+    try {
+      _defineFunction = jsonDecode(defineFunction) as Map<String, dynamic>;
+    } catch (e) {
+      throw LogicException(
+        data: 'define_function.wrong_json_format',
+        message: "Define function: Wrong json format",
       );
     }
 
@@ -41,7 +50,7 @@ String? run({
         name: className,
         map: map,
       );
-      final listDefineField = _getDefineFieldList(defineFunction);
+      final listDefineField = _getDefineFieldList(_defineFunction);
 
       final List<ClassModel> listClassModel = _getListClassModel(classModel);
       final rs = listClassModel
@@ -60,9 +69,8 @@ String? run({
 }
 
 /// Lấy thông tin define cách xử lý model từ file define.json
-List<DefineFieldModel> _getDefineFieldList(String jsonData) {
+List<DefineFieldModel> _getDefineFieldList(Map<String, dynamic> json) {
   print('[run - _getDefineFieldList] run');
-  final json = jsonDecode(jsonData) as Map<String, dynamic>;
   final field = (json['field'] as List)
       .map((e) => DefineFieldModel.fromJson(e as Map<String, dynamic>))
       .toList();
