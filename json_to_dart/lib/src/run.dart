@@ -159,7 +159,7 @@ Map<String, String> _fieldModelToMap({
     for (final FieldModel field in listField) {
       final Iterable<DefineCaseModel> caseUsing =
           defineFieldModel.caseList.where(
-        (e) => e.type == field.fieldTypeName,
+        (e) => e.type == field.fieldType,
       );
       String process;
       if (caseUsing.isNotEmpty) {

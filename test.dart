@@ -78,13 +78,13 @@ class ClassName {
       empty = json['empty'],
       favouriteInteger = json['favouriteInteger'] as int?,
       favouriteDouble = json['favouriteDouble'] as double?,
-      randomBools = (json['randomBools'] as List?)?.map((dynamic e) => e as bool).toList(),
-      randomStrings = (json['randomStrings'] as List?)?.map((dynamic e) => e as String).toList(),
-      randomIntegers = (json['randomIntegers'] as List?)?.map((dynamic e) => e as int).toList(),
-      randomDoubles = (json['randomDoubles'] as List?)?.map((dynamic e) => e as double).toList(),
-      randomNulls = json['randomNulls'] as List?,
-      abc2 = json['_abc2__'] as List?,
-      personalInfo = (json['personalInfo'] as Map<String,dynamic>?) != null ? PersonalInfo.fromJson(json['personalInfo'] as Map<String,dynamic>) : null;
+      randomBools = json['randomBools'] as List<bool>?,
+      randomStrings = json['randomStrings'] as List<String>?,
+      randomIntegers = json['randomIntegers'] as List<int>?,
+      randomDoubles = json['randomDoubles'] as List<double>?,
+      randomNulls = json['randomNulls'] as List<dynamic>?,
+      abc2 = json['_abc2__'] as List<dynamic>?,
+      personalInfo = json['personalInfo'] as PersonalInfo?;
 
   Map<String, dynamic> toJson() => {
     'Username' : username,
@@ -101,7 +101,7 @@ class ClassName {
     'randomDoubles' : randomDoubles,
     'randomNulls' : randomNulls,
     '_abc2__' : abc2,
-    'personalInfo' : personalInfo?.toJson()
+    'personalInfo' : personalInfo
   };
 }
 
@@ -140,15 +140,15 @@ class PersonalInfo {
     : firstName = json['firstName'] as String?,
       lastName = json['lastName'] as String?,
       location = json['location'] as String?,
-      abc = (json['abc'] as Map<String,dynamic>?) != null ? Abc.fromJson(json['abc'] as Map<String,dynamic>) : null,
-      phones = (json['phones'] as List?)?.map((dynamic e) => Phones.fromJson(e as Map<String,dynamic>)).toList();
+      abc = json['abc'] as Abc?,
+      phones = json['phones'] as List<Phones>?;
 
   Map<String, dynamic> toJson() => {
     'firstName' : firstName,
     'lastName' : lastName,
     'location' : location,
-    'abc' : abc?.toJson(),
-    'phones' : phones?.map((e) => e.toJson()).toList()
+    'abc' : abc,
+    'phones' : phones
   };
 }
 

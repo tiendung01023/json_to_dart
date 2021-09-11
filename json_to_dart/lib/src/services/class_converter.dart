@@ -1,4 +1,3 @@
-import 'package:json_to_dart/src/enums/type_enum.dart';
 import 'package:json_to_dart/src/model/class_model.dart';
 import 'package:json_to_dart/src/model/field_model.dart';
 
@@ -16,27 +15,27 @@ class ClassConverter {
       if (value is bool) {
         fieldModel = FieldModel(
           name: key,
-          type: TypeEnum.bool,
+          fieldTypeCode: "bool",
         );
       } else if (value is int) {
         fieldModel = FieldModel(
           name: key,
-          type: TypeEnum.int,
+          fieldTypeCode: "int",
         );
       } else if (value is double) {
         fieldModel = FieldModel(
           name: key,
-          type: TypeEnum.double,
+          fieldTypeCode: "double",
         );
       } else if (value is String) {
         fieldModel = FieldModel(
           name: key,
-          type: TypeEnum.String,
+          fieldTypeCode: "String",
         );
       } else if (value is Map<String, dynamic>) {
         fieldModel = FieldModel(
           name: key,
-          type: TypeEnum.Class,
+          fieldTypeCode: "Class",
           classModel: parseMap(name: key, map: value),
         );
       } else if (value is List) {
@@ -47,39 +46,39 @@ class ClassConverter {
         if (valueFirst is bool) {
           fieldModel = FieldModel(
             name: key,
-            type: TypeEnum.List_bool,
+            fieldTypeCode: "List<bool>",
           );
         } else if (valueFirst is int) {
           fieldModel = FieldModel(
             name: key,
-            type: TypeEnum.List_int,
+            fieldTypeCode: "List<int>",
           );
         } else if (valueFirst is double) {
           fieldModel = FieldModel(
             name: key,
-            type: TypeEnum.List_double,
+            fieldTypeCode: "List<double>",
           );
         } else if (valueFirst is String) {
           fieldModel = FieldModel(
             name: key,
-            type: TypeEnum.List_String,
+            fieldTypeCode: "List<String>",
           );
         } else if (valueFirst is Map<String, dynamic>) {
           fieldModel = FieldModel(
             name: key,
-            type: TypeEnum.List_Class,
+            fieldTypeCode: "List<Class>",
             classModel: parseMap(name: key, map: valueFirst),
           );
         } else {
           fieldModel = FieldModel(
             name: key,
-            type: TypeEnum.List_dynamic,
+            fieldTypeCode: "List<dynamic>",
           );
         }
       } else {
         fieldModel = FieldModel(
           name: key,
-          type: TypeEnum.dynamic,
+          fieldTypeCode: "dynamic",
         );
       }
       listField.add(fieldModel);
