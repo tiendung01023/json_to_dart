@@ -6,112 +6,140 @@ import 'dart:js';
 
 import 'package:json_to_dart/json_to_dart.dart';
 
+final jsonInput = querySelector('#jsonInput') as TextAreaElement;
+final converterClassInput =
+    querySelector('#converterClassInput') as TextAreaElement;
+final converterFunctionInput =
+    querySelector('#converterFunctionInput') as TextAreaElement;
+final converterClassInputReadOnly =
+    querySelector('#converterClassInputReadOnly')!;
+final converterFunctionInputReadOnly =
+    querySelector('#converterFunctionInputReadOnly')!;
+final converterType = querySelector('#converterType') as SelectElement;
+final classOutput = querySelector('#classOutput') as TextAreaElement;
+final classOutputHidden =
+    querySelector('#classOutputHidden') as TextAreaElement;
+
+final classOutputDiv = querySelector('#classOutputDiv') as DivElement;
+
+final btnSubmit = querySelector('#submit') as ButtonElement;
+final btnClose = querySelector('#close') as DivElement;
+
 Future<void> runDemo() async {
   String demo = await _readJsonFile("assets/json/demo_1.json");
 
   /// Pretty Json
   demo = _prettyJson(demo);
-  (querySelector('#jsonInput') as TextAreaElement).value = demo;
+  jsonInput.value = demo;
 }
 
 void main() {
   runDemo();
-  showOutput(false);
-  showConverterInput(false);
+  _showOutputDiv(false);
 
   loadConverterType();
 
   /// Sự kiện nhấn submit
-  querySelector('#submit')?.addEventListener('click', (_) => _onSubmit());
-  querySelector('#close')?.addEventListener('click', (e) {
-    showOutput(false);
-    final element = querySelector('#converterType') as SelectElement;
-    final value = element.value;
-    print(value);
-    _setTextDefineInput(value ?? '');
-  });
-  querySelector('#converterType')?.addEventListener('change', (_) {
-    final element = querySelector('#converterType') as SelectElement;
-    final value = element.value;
-    print(value);
-    _setTextDefineInput(value ?? '');
+  btnSubmit.addEventListener(
+    'click',
+    (_) => _onSubmit(),
+  );
+  btnClose.addEventListener(
+    'click',
+    (_) {
+      _showOutputDiv(false);
+      final value = converterType.value;
+      print(value);
+      _setTextDefineInput(value ?? '');
+    },
+  );
+  converterType.addEventListener(
+    'change',
+    (_) {
+      _showOutputDiv(false);
+      final value = converterType.value;
+      print(value);
+      _setTextDefineInput(value ?? '');
 
-    final key = "converterType";
-    context.callMethod('setValueLocal', [key, value]);
-  });
-  querySelector('#converterClassInput')?.addEventListener('input', (_) {
-    final value = querySelector('#converterClassInput');
-    context.callMethod('setValueLocal', ["converterClassInput", value]);
-  });
-  querySelector('#converterFunctionInput')?.addEventListener('input', (_) {
-    final value = querySelector('#converterFunctionInput');
-    context.callMethod('setValueLocal', ["converterFunctionInput", value]);
-  });
+      context.callMethod('setValueLocal', ["converterType", value]);
+
+      final converterClassInputValue = converterClassInput.value;
+      context.callMethod(
+          'setValueLocal', ["converterClassInput", converterClassInputValue]);
+      converterClassInputReadOnly.text = converterClassInputValue;
+
+      final converterFunctionInputValue = converterFunctionInput.value;
+      context.callMethod('setValueLocal',
+          ["converterFunctionInput", converterFunctionInputValue]);
+      converterFunctionInputReadOnly.text = converterFunctionInputValue;
+    },
+  );
+  converterClassInput.addEventListener(
+    'input',
+    (_) {
+      final converterClassInputValue = converterClassInput.value;
+      context.callMethod(
+          'setValueLocal', ["converterClassInput", converterClassInputValue]);
+      converterClassInputReadOnly.text = converterClassInputValue;
+    },
+  );
+  converterFunctionInput.addEventListener(
+    'input',
+    (_) {
+      final converterFunctionInputValue = converterFunctionInput.value;
+      context.callMethod('setValueLocal',
+          ["converterFunctionInput", converterFunctionInputValue]);
+      converterFunctionInputReadOnly.text = converterFunctionInputValue;
+    },
+  );
 }
 
 void loadConverterType() {
-  final key = "converterType";
-
-  final element = querySelector('#converterType') as SelectElement;
-
   /// Thêm option cho converter type
-  element
+  converterType
       .append(OptionElement(data: "Private fields", value: "private_fields"));
-  element.append(OptionElement(data: "Public fields", value: "public_fields"));
-  element.append(OptionElement(data: "Custom", value: "custom"));
+  converterType
+      .append(OptionElement(data: "Public fields", value: "public_fields"));
+  converterType.append(OptionElement(data: "Custom", value: "custom"));
 
   /// Lấy value người dùng đã chọn
-  String? value = context.callMethod('getValueLocal', [key]);
+  String? value = context.callMethod('getValueLocal', ["converterType"]);
   value ??= 'private_fields';
-  element.value = value;
+  converterType.value = value;
   print('value: $value');
   if (value == 'custom') {
-    String? converterClassInput =
+    converterClassInputReadOnly.text = converterClassInput.value =
         context.callMethod('getValueLocal', ["converterClassInput"]);
-    String? converterFunctionInput =
+    converterFunctionInputReadOnly.text = converterFunctionInput.value =
         context.callMethod('getValueLocal', ["converterFunctionInput"]);
-    querySelector('#converterClassInput')?.text = converterClassInput;
-    querySelector('#converterFunctionInput')?.text = converterFunctionInput;
   }
   _setTextDefineInput(value);
 }
 
-void showOutput(bool show) {
-  querySelector('#classOutputDiv')?.hidden = !show;
-  if (show) {
-    querySelector('#converterInputDiv')?.hidden = true;
-  }
-}
-
-void showConverterInput(bool show) {
-  querySelector('#converterInputDiv')?.hidden = !show;
-  if (show) {
-    querySelector('#classOutputDiv')?.hidden = true;
-  }
+void _showOutputDiv(bool show) {
+  classOutputDiv.hidden = !show;
 }
 
 Future<void> _onSubmit() async {
   print('[web - main - _onSubmit] run');
   try {
-    final jsonInput = (querySelector('#jsonInput') as TextAreaElement).value;
-    final formClass =
-        (querySelector('#converterClassInput') as TextAreaElement).value ?? '';
-    final defineFunction =
-        (querySelector('#converterFunctionInput') as TextAreaElement).value ??
-            '';
+    final jsonInputValue = jsonInput.value ?? '';
+    final formClass = converterClassInput.value ?? '';
+    final defineFunction = converterFunctionInput.value ?? '';
 
-    print("jsonInput: $jsonInput");
-    if (jsonInput != null) {
-      String? rs = jsonToDart(
-        className: 'ClassName',
-        json: jsonInput,
-        formClass: formClass,
-        defineFunction: defineFunction,
-      );
-      querySelector('#classOutputHidden')?.text = rs ?? '';
-      querySelector('#classOutput')?.text = rs ?? '';
-      showOutput(true);
-    }
+    print("jsonInput: $jsonInputValue");
+    print("defineFunction: $defineFunction");
+    print("formClass: $formClass");
+
+    String? rs = jsonToDart(
+      className: 'ClassName',
+      json: jsonInputValue,
+      formClass: formClass,
+      defineFunction: defineFunction,
+    );
+    classOutputHidden.value = rs ?? '';
+    classOutput.value = rs ?? '';
+    _showOutputDiv(true);
   } catch (e) {
     print('[web - main - _onSubmit] $e');
     String message;
@@ -125,15 +153,18 @@ Future<void> _onSubmit() async {
 }
 
 Future<void> _setTextDefineInput(String type) async {
-  print('[_setTextDefineInput] run');
-  final classElement = querySelector('#converterClassInput') as TextAreaElement;
-  final functionElement =
-      querySelector('#converterFunctionInput') as TextAreaElement;
-  final div = querySelector('#converterInputDiv');
+  print('[_setTextDefineInput] run $type');
 
   if (type == "custom") {
-    div?.hidden = false;
+    converterClassInput.hidden = false;
+    converterFunctionInput.hidden = false;
+    converterClassInputReadOnly.hidden = true;
+    converterFunctionInputReadOnly.hidden = true;
   } else {
+    converterClassInput.hidden = true;
+    converterFunctionInput.hidden = true;
+    converterClassInputReadOnly.hidden = false;
+    converterFunctionInputReadOnly.hidden = false;
     String formClass = '';
     String defineFunction = '';
     try {
@@ -147,9 +178,13 @@ Future<void> _setTextDefineInput(String type) async {
       print('[_setTextDefineInput] $e');
     }
 
-    classElement.text = formClass;
-    functionElement.text = defineFunction;
-    div?.hidden = true;
+    print('[_setTextDefineInput] formClass $formClass');
+    print('[_setTextDefineInput] defineFunction $defineFunction');
+
+    converterClassInput.value = formClass;
+    converterFunctionInput.value = defineFunction;
+    converterClassInputReadOnly.text = formClass;
+    converterFunctionInputReadOnly.text = defineFunction;
   }
 }
 

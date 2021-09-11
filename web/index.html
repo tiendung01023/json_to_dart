@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>Json to Dart converter -This tool has support null safety, custom converter</title>
+    <title>Json to Dart converter - This tool has support null safety, custom converter</title>
     <meta name="description"
         content="Type in your json and hit the convert button. The tool will support converting to Dart model. Then you just copy it into your project">
     <link rel="shortcut icon" type="image/png" href="favicon.png" />
@@ -32,7 +32,7 @@
         <a id="themeMode" style="font-size: 25px;">🌤🌙</a>
     </nav>
     <div class="row myBg1">
-        <div class="col-12 col-md-4" style="margin: 16px;">
+        <div class="col-12 col-md-7" style="margin: 16px;">
             <form>
                 <div class="form-group">
                     <label class="myText1 title" for="jsonInput">Json input:</label>
@@ -41,14 +41,14 @@
                 </div>
                 <div class="form-group">
                     <label class="myText1 title" for="converterType">Converter type:</label>
-                    <select class="form-control myBg1 myText1" id="converterType"> 
+                    <select class="form-control myBg1 myText1" id="converterType">
                     </select>
                 </div>
                 <button id="submit" type="button" class="btn mb-2 myBg2 text-light">Convert</button>
             </form>
         </div>
-        <div class="col-12 col-md-7" style="margin: 16px;">
-            <div class="form-group" id="classOutputDiv">
+        <div class="col-12 col-md-4" style="margin: 16px;">
+            <div class="form-group" id="classOutputDiv" hidden>
                 <label class="myText1 title" for="classOutput">Class output:</label>
                 <div class="textarea-container">
                     <textarea class="form-control myBg1 myText1" id="classOutput" rows="26"
@@ -66,16 +66,18 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group" id="converterInputDiv" hidden>
+            <div class="form-group" id="converterInputDiv">
                 <label class="myText1 title" for="converterInput">Converter class input:</label>
                 <div class="textarea-container">
                     <textarea class="form-control myBg1 myText1" id="converterClassInput" rows="17"
                         placeholder="Input your define class here..."></textarea>
+                    <pre class="myBg1 myText1" id="converterClassInputReadOnly"></pre>
                 </div>
                 <label class="myText1 title" for="converterInput">Converter function input:</label>
                 <div class="textarea-container">
                     <textarea class="form-control myBg1 myText1" id="converterFunctionInput" rows="17"
                         placeholder="Input your define function here..."></textarea>
+                    <pre class="myBg1 myText1" id="converterFunctionInputReadOnly"></pre>
                 </div>
             </div>
         </div>
