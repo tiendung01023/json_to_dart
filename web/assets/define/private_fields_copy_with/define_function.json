@@ -3,8 +3,8 @@
             {
                   "name": "fieldFromJson",
                   "join": ",\n      ",
-                  "case_default": "{fieldName} = json['{fieldJson}'] as {fieldType}",
-                  "case_list": [
+                  "default": "{fieldName} = json['{fieldJson}'] as {fieldType}",
+                  "list": [
                         {
                               "type": "dynamic",
                               "process": "{fieldName} = json['{fieldJson}']"
@@ -42,8 +42,8 @@
             {
                   "name": "fieldToJson",
                   "join": ",\n    ",
-                  "case_default": "'{fieldJson}' : {fieldName}",
-                  "case_list": [
+                  "default": "'{fieldJson}' : {fieldName}",
+                  "list": [
                         {
                               "type": "Class",
                               "process": "'{fieldJson}' : {fieldName}?.toJson()"

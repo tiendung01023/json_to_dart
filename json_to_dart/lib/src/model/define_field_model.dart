@@ -7,8 +7,8 @@ class DefineFieldModel {
   DefineFieldModel.fromJson(Map<String, dynamic> json)
       : name = json['name'] as String,
         join = json['join'] as String,
-        caseDefault = json['case_default'] as String,
-        caseList = (json['case_list'] as List?)
+        caseDefault = json['default'] as String,
+        caseList = (json['list'] as List?)
                 ?.map(
                     (e) => DefineCaseModel.fromJson(e as Map<String, dynamic>))
                 .toList() ??
