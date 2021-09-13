@@ -1,6 +1,16 @@
 {
       "field": [
             {
+                  "name": "fieldInit",
+                  "join": "\n  ",
+                  "default": "final {fieldType} {fieldName};"
+            },
+            {
+                  "name": "fieldConstructor",
+                  "join": "\n    ",
+                  "default": "this.{fieldName},"
+            },
+            {
                   "name": "fieldFromJson",
                   "join": ",\n      ",
                   "default": "{fieldName} = json['{fieldJson}'] as {fieldType}",

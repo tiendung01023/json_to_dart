@@ -16,21 +16,21 @@ class ClassName {
   final PersonalInfo? personalInfo;
 
   ClassName({
-    required this.username,
-    required this.url,
-    required this.htmlUrl,
-    required this.apb,
-    required this.aaa,
-    required this.empty,
-    required this.favouriteInteger,
-    required this.favouriteDouble,
-    required this.randomBools,
-    required this.randomStrings,
-    required this.randomIntegers,
-    required this.randomDoubles,
-    required this.randomNulls,
-    required this.abc2,
-    required this.personalInfo,
+    this.username,
+    this.url,
+    this.htmlUrl,
+    this.apb,
+    this.aaa,
+    this.empty,
+    this.favouriteInteger,
+    this.favouriteDouble,
+    this.randomBools,
+    this.randomStrings,
+    this.randomIntegers,
+    this.randomDoubles,
+    this.randomNulls,
+    this.abc2,
+    this.personalInfo,
   });
 
   ClassName copyWith({
@@ -113,11 +113,11 @@ class PersonalInfo {
   final List<Phones>? phones;
 
   PersonalInfo({
-    required this.firstName,
-    required this.lastName,
-    required this.location,
-    required this.abc,
-    required this.phones,
+    this.firstName,
+    this.lastName,
+    this.location,
+    this.abc,
+    this.phones,
   });
 
   PersonalInfo copyWith({
@@ -156,7 +156,7 @@ class Abc {
   final String? test;
 
   Abc({
-    required this.test,
+    this.test,
   });
 
   Abc copyWith({
@@ -181,9 +181,9 @@ class Phones {
   final bool? shouldCall;
 
   Phones({
-    required this.type,
-    required this.number,
-    required this.shouldCall,
+    this.type,
+    this.number,
+    this.shouldCall,
   });
 
   Phones copyWith({
