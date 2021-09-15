@@ -1,8 +1,8 @@
 class {className} {
-  {fieldType} {fieldName};
+  {fieldInit}
 
   {className}({
-    required this.{fieldName},
+    {fieldConstructor}
   });
 
   {className}.fromJson(Map<String, dynamic> json) {
