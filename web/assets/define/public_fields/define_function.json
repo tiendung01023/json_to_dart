@@ -24,19 +24,7 @@
                               "process": "{fieldName} = (json['{fieldJson}'] as Map<String,dynamic>?) != null ? {className}.fromJson(json['{fieldJson}'] as Map<String,dynamic>) : null;"
                         },
                         {
-                              "type": "List<bool>",
-                              "process": "{fieldName} = (json['{fieldJson}'] as List?)?.map((dynamic e) => e as {fieldTypeCode_1}).toList();"
-                        },
-                        {
-                              "type": "List<int>",
-                              "process": "{fieldName} = (json['{fieldJson}'] as List?)?.map((dynamic e) => e as {fieldTypeCode_1}).toList();"
-                        },
-                        {
-                              "type": "List<double>",
-                              "process": "{fieldName} = (json['{fieldJson}'] as List?)?.map((dynamic e) => e as {fieldTypeCode_1}).toList();"
-                        },
-                        {
-                              "type": "List<String>",
+                              "type": "List<bool>,List<int>,List<double>,List<String>",
                               "process": "{fieldName} = (json['{fieldJson}'] as List?)?.map((dynamic e) => e as {fieldTypeCode_1}).toList();"
                         },
                         {
