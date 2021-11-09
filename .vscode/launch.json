@@ -8,7 +8,7 @@
                   "name": "classGenerate",
                   "request": "launch",
                   "type": "dart",
-                  "program": "test/test1/test.dart"
+                  "program": "web/main.dart"
             },
             {
                   "name": "json_to_dart",

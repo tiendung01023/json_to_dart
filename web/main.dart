@@ -7,6 +7,7 @@ import 'dart:js';
 import 'package:json_to_dart/json_to_dart.dart';
 
 final jsonInput = querySelector('#jsonInput') as TextAreaElement;
+final className = querySelector('#className') as InputElement;
 final converterClassInput =
     querySelector('#converterClassInput') as TextAreaElement;
 final converterFunctionInput =
@@ -37,6 +38,7 @@ void main() {
   runDemo();
   _showOutputDiv(false);
 
+  className.value = 'ClassName';
   loadConverterType();
 
   /// Sự kiện nhấn submit
@@ -100,8 +102,8 @@ void loadConverterType() {
       .append(OptionElement(data: "Private fields", value: "private_fields"));
   converterType
       .append(OptionElement(data: "Public fields", value: "public_fields"));
-  converterType
-      .append(OptionElement(data: "Private fields - copyWith", value: "private_fields_copy_with"));
+  converterType.append(OptionElement(
+      data: "Private fields - copyWith", value: "private_fields_copy_with"));
   converterType.append(OptionElement(data: "Custom", value: "custom"));
 
   /// Lấy value người dùng đã chọn
@@ -134,7 +136,7 @@ Future<void> _onSubmit() async {
     print("formClass: $formClass");
 
     String? rs = jsonToDart(
-      className: 'ClassName',
+      className: className.value ?? 'ClassName',
       json: jsonInputValue,
       formClass: formClass,
       defineFunction: defineFunction,
